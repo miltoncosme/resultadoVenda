@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.min.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+
+  <style>
+
+    .map-container{
+      overflow:hidden;
+      padding-bottom:56.25%;
+      position:relative;
+      height:0;
+      }
+    .map-container iframe{
+      left:0;
+      top:0;
+      height:100%;
+      width:100%;
+      position:absolute;
+    }
+  </style>
+</head>
+
+<body class="grey lighten-3">
+
+  <!--Main Navigation-->
+  <header>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+      <div class="container-fluid">
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+          <strong class="blue-text">SRI</strong>
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link waves-effect" onclick="redirectTo()" >Produtos Vendidos
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link waves-effect" onclick="redirectToFinalizadora()" > Venda Finalizadora 
+                  <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect" onclick='redirectToVendas()'>Vendas
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> Logoff
+                </a>
+            </li>
+          </ul>
+
+          <!-- Right -->
+          <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+                target="_blank">
+                <i class="fab fa-github mr-2"></i>MDB GitHub
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+    
+
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+
+      <!-- Heading -->
+      <div class="card mb-4 wow fadeIn">
+
+        <!--Card content-->
+        <div class="card-body d-sm-flex justify-content-between">
+
+          <h4 class="mb-2 mb-sm-0 pt-1">
+            <a href="/" target="_blank">Pagina Inicial</a>
+            <span>/</span>
+            <span>Finalizadora</span>
+          </h4>
+
+          <div class="d-flex justify-content-center">
+            <!-- Default input -->
+            <div>
+                <label for="selectCaixa"> Caixa </label>
+                <select id="caixa" name="selectCaixa" >
+                  <option value="Selecionar">Selecionar</option>
+                  <option value="Todos">Todos</option>
+                </select>
+                <p>Data: <input type="text" id="calendario" /></p>
+                
+                <!-- <button onclick="consultaFinalizadora()"></button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Heading -->
+      
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Card content-->
+            <div class="card-body">
+                <div id="piechart"></div>
+
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                
+                <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+                
+                // Draw the chart and set the chart values
+                function drawChart() {
+                  var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  ['Work', 8],
+                  ['Eat', 2],
+                  ['TV', 4],
+                  ['Gym', 2],
+                  ['Sleep', 8]
+                ]);
+                
+                  // Optional; add a title and set the width and height of the chart
+                  var options = {'title':'Finalizadora', 'width':550, 'height':400};
+                
+                  // Display the chart inside the <div> element with id="piechart"
+                  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                  chart.draw(data, options);
+                }
+                </script>
+                <!--Grid row-->
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+    </div>
+  </main>
+  <script src="/js/jquery-3.4.1.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+  <script>
+    var dataUS;
+
+    $(function() {
+      $( "#caixa" ).change(function(res) {
+        let caixa = res.target.value
+        $.ajax({ 
+          url: `/finalizadora/consulta/${dataUS}/caixa/${caixa}`,
+          type:"get" ,
+          success: function(res){
+            console.log(res);
+            const dados = res.dados
+          } 
+        })
+      });
+    });
+
+    $(function() {
+      $( "#calendario" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+      });
+    });  
+    
+   
+  </script>
+  <script>
+    window.onload = initPage;
+
+    var dataatual = '<%= dados.data %>'
+    const split = dataatual.split('-');
+    dataatual = split[2] + "/" +split[1]+"/"+split[0];
+
+    var caixaatual = '<%= dados.caixa %>'
+    // console.log('data: ', dataatual, 'caixa: ', caixaatual)
+    $(function() {
+      $( "#calendario" ).val(dataatual)
+      $( "#caixa" ).val(caixaatual) 
+    })
+
+    function initPage(){
+    $( "#calendario" ).change(function(res) {
+      const data = res.target.value
+      const split = data.split('/');
+      dataUS = split[2] + "-" +split[1]+"-"+split[0];
+      $(function() {
+
+        $.ajax({ 
+          url: `/finalizadora/consulta/${dataUS}`,
+          type:"get" ,
+          success: function(res){
+            console.log(res);
+            console.log(res.dados.length)
+            const dados = res.dados
+            dados.map(valorCaixa =>{
+              if(valorCaixa.caixa){
+                let select = document.querySelector('#caixa')
+                var caixa = document.createElement("option");        
+                caixa.innerHTML = valorCaixa.caixa    
+                caixa.value = valorCaixa.caixa         
+                select.appendChild(caixa);
+              }
+            })
+          } 
+        }) 
+      })
+    })
+  }
+
+   
+    console.log(caixaatual)
+    function redirectTo(){
+      if(caixaatual.length > 7){
+        window.location.href= '/?data=' + caixaatual;
+      }else window.location.href= '/?data=' + dataUS;
+    }
+    function redirectToFinalizadora(){
+      if(caixaatual.length > 7){
+        window.location.href='/finalizadora' + '?data=' + caixaatual;
+      }else window.location.href='/finalizadora' + '?data=' + dataUS;
+    }
+    function redirectToVendas(){
+      if(caixaatual.length > 7){
+        window.location.href='/vendas' + '?data=' + caixaatual ;
+      }else window.location.href='/vendas' + '?data=' + dataUS ;
+    }
+  </script>
+  
+
+</body>
+
+</html>
