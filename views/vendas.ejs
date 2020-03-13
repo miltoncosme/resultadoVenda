@@ -14,21 +14,26 @@
   <link href="css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="css/style.min.css" rel="stylesheet">
-  <style>
 
-  .map-container{
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
-  }
-  .map-container iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
-  }
+  <link href="css/datepicker.css" rel="stylesheet">
+
+
+  
+
+  <style>
+    .map-container{
+      overflow:hidden;
+      padding-bottom:56.25%;
+      position:relative;
+      height:0;
+    }
+    .map-container iframe{
+      left:0;
+      top:0;
+      height:100%;
+      width:100%;
+      position:absolute;
+    }
   </style>
 <style>
   .textAll{
@@ -53,9 +58,10 @@
       <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-          <strong class="blue-text">SRI</strong>
+        <a class="navbar-brand waves-effect" href="http://www.sriautomacao.com.br/" target="_blank">
+          <strong class="blue-text">SRICASH</strong>
         </a>
+
 
         <!-- Collapse -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -69,44 +75,22 @@
           <!-- Left -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link waves-effect" onclick='redirectTo()'>Produtos Vendidos
+                <a class="nav-link waves-effect" href="/">Produtos Vendidos
                 </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-effect" onclick="redirectToFinalizadora()">Finalizadora
+              <a class="nav-link waves-effect" href="finalizadora">Venda Finalizadora
               </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link waves-effect" onclick="redirectToVendas()"> Vendas
-                  <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" href="" > Logoff
+                <a class="nav-link waves-effect"> Vendas                
                 </a>
             </li>
-          </ul>
-
-          <!-- Right -->
-          <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">
-              <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-facebook-f"></i>
+              <a class="nav-link waves-effect" href="logout" > Logoff
               </a>
             </li>
-            <li class="nav-item">
-              <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
-                target="_blank">
-                <i class="fab fa-github mr-2"></i>MDB GitHub
-              </a>
-            </li>
-          </ul>
-
+          </ul>        
         </div>
 
       </div>
@@ -119,7 +103,7 @@
   <!--Main Navigation-->
 
   <!--Main layout-->
-  <main class="pt-5 mx-lg-5">
+  <div class="pt-5 mx-lg-5">
     <div class="container-fluid mt-5">
 
       <!-- Heading -->
@@ -133,16 +117,14 @@
             <span>/</span>
             <span>Vendas</span>
           </h4>
-          <form class="d-flex justify-content-center">
-            <div>
-              <label for="selectCaixa"> Caixa </label>
-                <select id="caixa" name="selectCaixa" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Todos">Todos</option>
-                </select>
-              <p>Data: <input type="text" id="calendario" /></p>
-            </div>
-          </form>
+          <div  class="d-flex justify-content-center">
+            <input id="datepicker" class="form-control" data-date-format="dd/mm/yyyy" placeholder="Data:"/>              
+            &nbsp;
+            <select id="caixa" name="selectCaixa" class="form-control">
+              <option value="Selecionar">Caixa</option>
+              <option value="Todos">Todos</option>
+            </select>
+          </div>  
         </div>
       </div>
       <!-- Heading -->
@@ -157,15 +139,28 @@
             <!--Card content-->
             <div class="card-body">
               
-              <div class="textAll">
-                <h5>Total de vendas no Período</h5>
-                <h4>R$ 2500,16</h4>
-                <p>R$ 2500,16</p>
-                <h5>Total de cancelamentos</h5>
-                <h7>N° de Cupons 10 </h7>
-                <h7>Ticket Médio 20 </h7>
+               <!-- List group links -->
+              <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action waves-effect">Venda Bruta
+                  <span id="qtdtotal" class="badge badge-secondary badge-pill pull-right" style="float:right;width: 150px;">0</span>
+                </a>
+                <a class="list-group-item list-group-item-action waves-effect">Valor (R$)
+                  <span id="vlrbruto" class="badge badge-warning badge-pill pull-right" style="float:right;width: 150px;">R$ 0,00</span>
+                </a>
+                <a class="list-group-item list-group-item-action waves-effect">Vendas canceladas
+                  <span id="qtdcancelado" class="badge badge-secondary badge-pill pull-right"  style="float:right;width: 150px;">0</span>
+                </a>
+                <a class="list-group-item list-group-item-action waves-effect">Valor (R$)
+                  <span id="vlrcancelado" class="badge badge-danger badge-pill pull-right" style="float:right;width: 150px;">R$ 0,00</span>
+                </a>
+                <a class="list-group-item list-group-item-action waves-effect">Venda Líquida
+                  <span id="qtdliquido" class="badge badge-secondary badge-pill pull-right"  style="float:right;width: 150px;">0</span>
+                </a>
+                <a class="list-group-item list-group-item-action waves-effect">Valor (R$)
+                  <span id="vlrliquido" class="badge badge-success badge-pill pull-right" style="float:right;width: 150px;">R$ 0,00</span>
+                </a>          
               </div>
-              
+              <!-- List group links -->
 
             </div>
 
@@ -179,87 +174,78 @@
       <!--Grid row-->
 
     </div>
-  </main>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+  </div>
+
+  
+  
   <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+
   <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-  <script>
-    var dataUS;
 
-    $(function() {
-      $( "#caixa" ).change(function(res) {
-        let caixa = res.target.value
-        $.ajax({ 
-          url: `/finalizadora/consulta/${dataUS}/caixa/${caixa}`,
-          type:"get" ,
-          success: function(res){
-            console.log(res);
-            const dados = res.dados
-          } 
-        })
+  <script type="text/javascript" src="js/bootstrap-datepicker.js" charset="UTF-8"></script>
+
+  
+<script>
+  $.fn.datepicker.dates['en'] = {
+      days: ["Domingo", "Segunda", "Terça", "Quarta", "Quita", "Sexta", "Sabado", "Domingo"],
+      daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"],
+      daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa", "Do"],
+      months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+      monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+      today: "Hoje"
+  };    
+
+  $('#datepicker').datepicker({
+      format: 'dd/mm/yyyy'
+  })
+  .on('changeDate', function(ev){
+    const data = String(ev.target.value).replace('/','.').replace('/','.');
+    console.log(data);
+    var sel= document.getElementById('caixa');
+    let i, L = sel.options.length - 1;
+    for(i = L; i >= 0; i--) {
+        sel.remove(i);
+    };
+    sel.options[sel.options.length] = new Option('Caixa', 'Selecionar');
+    sel.options[sel.options.length] = new Option('Todos','Todos');
+    console.log(sel);
+    $.ajax({url: `/api/finalizadora/caixasativos/${data}`, success: function(result){
+      const {dados} = result;
+      console.log('dados: ', dados);
+      dados.forEach(function (item, indice, array) {
+        console.log('item:', item.caixa);          
+        sel.options[sel.options.length] = new Option(item.caixa,item.caixa);
       });
-    });
+      let ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx,{});
+      myChart.clear();
+      myChart.destroy()
+    }});
+    $('#datepicker').datepicker('hide');
+  });
 
-    $(function() {
-      $( "#calendario" ).datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-      });
-    });  
-    
-   
-  </script>
-  <script>
-    window.onload = initPage;
-
-    var dataatual = '<%= dados.data %>'
-    const split = dataatual.split('-');
-    dataatual = split[2] + "/" +split[1]+"/"+split[0];
-
-    var caixaatual = '<%= dados.caixa %>'
-    console.log('data: ', dataatual, 'caixa: ', caixaatual)
-
-    function initPage(){
-
-      $( "#calendario" ).val(dataatual)
-      $( "#caixa" ).val(caixaatual) 
-    
- 
-    $( "#calendario" ).change(function(res) {
-      const data = res.target.value
-      const split = data.split('/');
-      dataUS = split[2] + "-" +split[1]+"-"+split[0];
+  $('#caixa')
+  .on('change', function(ev){
+     const caixa = ev.currentTarget.value;
+     const data  = document.getElementById('datepicker').value.replace('/','.').replace('/','.');
+     console.log('select: ', caixa, data);
+     $.ajax({url: `/api/vendas/${data}/${caixa}`, success: function(result){
+      const {dados} = result;
+      console.log('dados: ', dados);
+      document.getElementById('qtdliquido').innerHTML   = `${dados.qtdvendaliq.toFixed(2).replace('.',',')}`;
+      document.getElementById('qtdtotal').innerHTML     = `${dados.qtdvendabruto.toFixed(2).replace('.',',')}`;
+      document.getElementById('qtdcancelado').innerHTML = `${dados.qtdvendacan.toFixed(2).replace('.',',')}`;
+      document.getElementById('vlrliquido').innerHTML   = `R$ ${dados.liquido.toFixed(2).replace('.',',')}`;
+      document.getElementById('vlrbruto').innerHTML     = `R$ ${dados.bruto.toFixed(2).replace('.',',')}`;
+      document.getElementById('vlrcancelado').innerHTML = `R$ ${dados.cancelado.toFixed(2).replace('.',',')}`;
       
-      $(function() {
+    }});       
+  });
 
-        $.ajax({ 
-          url: `/finalizadora/consulta/${dataUS}`,
-          type:"get" ,
-          success: function(res){
-            console.log(res);
-            console.log(res.dados.length)
-            const dados = res.dados
-            dados.map(valorCaixa =>{
-              if(valorCaixa.caixa){
-                let select = document.querySelector('#caixa')
-                var caixa = document.createElement("option");        
-                caixa.innerHTML = valorCaixa.caixa    
-                caixa.value = valorCaixa.caixa       
-                select.appendChild(caixa);
-              }
-            })
-          } 
-        }) 
-      })
-    })
-     
-    }
+</script>
+
+
+  <script>
     console.log(caixaatual)
     function redirectTo(){
       if(caixaatual.length > 7){

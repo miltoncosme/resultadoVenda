@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="utf-8">
@@ -7,28 +7,36 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Material Design Bootstrap</title>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet" >
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="css/style.min.css" rel="stylesheet">
-  <style>
+  
+  <link href="css/datepicker.css" rel="stylesheet">  
+    
+  <link href="css/jquery.dataTables.css" rel="stylesheet"/>
+  
 
+  <style>
     .map-container{
-overflow:hidden;
-padding-bottom:56.25%;
-position:relative;
-height:0;
-}
-.map-container iframe{
-left:0;
-top:0;
-height:100%;
-width:100%;
-position:absolute;
-}
+      overflow:hidden;
+      padding-bottom:56.25%;
+      position:relative;
+      height:0;
+    }
+    .map-container iframe{
+      left:0;
+      top:0;
+      height:100%;
+      width:100%;
+      position:absolute;
+    }
+    .hide_me {display: none;}
+    li[data-dtr-index="0"] {display: none;}    
+    li[data-dtr-index="3"] {display: none;}
   </style>
 </head>
 
@@ -42,8 +50,8 @@ position:absolute;
       <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-          <strong class="blue-text">SRI</strong>
+        <a class="navbar-brand waves-effect" href="http://www.sriautomacao.com.br/" target="_blank">
+          <strong class="blue-text">SRICASH</strong>
         </a>
 
         <!-- Collapse -->
@@ -58,262 +66,190 @@ position:absolute;
           <!-- Left -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link waves-effect" onclick="redirectTo()">Produtos Vendidos
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" onclick="redirectToFinalizadora()" >
-                 Venda Finalizadora </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" onclick='redirectToVendas()'>
-                 Vendas </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> Logoff
+                <a class="nav-link waves-effect">Produtos Vendidos                  
                 </a>
             </li>
-          </ul>
-
-          <!-- Right -->
-          <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">
-              <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-              </a>
+                <a class="nav-link waves-effect" onclick="redirectToFinalizadora();"> Venda Finalizadora
+                </a>               
             </li>
             <li class="nav-item">
-              <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
+                <a class="nav-link waves-effect" onclick="redirectToVendas();">Vendas
+                </a>
             </li>
             <li class="nav-item">
-              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
-                target="_blank">
-                <i class="fab fa-github mr-2"></i>MDB GitHub
+              <a class="nav-link waves-effect" href="logout"> Logoff
               </a>
             </li>
           </ul>
-
         </div>
 
       </div>
     </nav>
     <!-- Navbar -->
 
-    
-
   </header>
   <!--Main Navigation-->
 
   <!--Main layout-->
-  <main class="pt-5 mx-lg-5">
+  <div class="pt-5 mx-lg-5">
     <div class="container-fluid mt-5">
 
-      <div class="card mb-4 wow fadeIn">
-        <!--Card content-->
-        <div class="card-body d-sm-flex justify-content-between">
-          <h4 class="mb-2 mb-sm-0 pt-1">           
-            <span>Data:</span> 
-            <span>Caixa:</span>
-          </h4>
-        </div>  
-      </div>
-
-
-
       <!-- Heading -->
       <div class="card mb-4 wow fadeIn">
 
         <!--Card content-->
-        <div class="card-body d-sm-flex justify-content-between">
-
-          <h4 class="mb-2 mb-sm-0 pt-1">
-            <a href="/" target="_blank">Pagina Inicial</a>
-            <span>/</span>
-            <span>Produtos Vendidos</span> 
-          </h4>
-          <form class="d-flex justify-content-center">
-            <div>
-              <label for="selectCaixa"> Caixa </label>
-                <select id="caixa" name="selectCaixa" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Todos">Todos</option>
-                </select>
-              <p>Data: <input type="text" id="calendario" /></p>
-            </div>
-          </form>
+        <div class="card-body d-sm-flex justify-content-between">  
+            <h4 class="mb-2 mb-sm-0 pt-1">
+              <a href="/" target="_blank">Pagina Inicial</a>
+              <span>/</span>
+              <span>Produtos Vendidos (Top 100)</span>
+            </h4>         
+            <div  class="d-flex justify-content-center">
+              <input id="datepicker" class="form-control" data-date-format="dd/mm/yyyy" placeholder="Selecione uma data"/>
+            </div>         
         </div>
+
       </div>
       <!-- Heading -->
+
+      <!--Grid row-->
       <div class="row wow fadeIn">
-
         <!--Grid column-->
-        <div class="col-md-12 mb-4">
-
+        <div class="col-md-12">
           <!--Card-->
           <div class="card">
-
             <!--Card content-->
             <div class="card-body">
-
-              <!-- Table  -->
-              <table class="table table-hover">
-                <!-- Table head -->
-                <thead class="blue lighten-4">
-                  <tr>
-                    <th>#</th>
-                    <th>Descrição</th>
-                    <th>QTD</th>
-                    <th>T. Compra</th>
-                    <th>T. Venda</th>
-                  </tr>
-                </thead>
-                <!-- Table head -->
-
-                <!-- Table body -->
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                    <td>Cell 4</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Cell 4</td>
-                    <td>Cell 5</td>
-                    <td>Cell 6</td>
-                    <td>Cell 6</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Cell 7</td>
-                    <td>Cell 8</td>
-                    <td>Cell 9</td>
-                    <td>Cell 9</td>
-                  </tr>
-                </tbody>
-                <!-- Table body -->
-              </table>
-              <!-- Table  -->
-
+              <table width="100%" id="tabela" class="display" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="hide_me">Código</th>
+                        <th>Descrição</th>
+                        <th>Qtd.</th>
+                        <th class="hide_me">Vlr. Venda</th> <!-- data-priority="2" -->
+                    </tr>
+                </thead>                
+              </table>              
             </div>
-
           </div>
           <!--/.Card-->
-
         </div>
-        <!--Grid column-->
-
+        <!--Grid column-->       
       </div>
       <!--Grid row-->
-
     </div>
-  </main>
-  <script src="/js/jquery-3.4.1.min.js" type="text/javascript"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
-  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-  <script>
-    var dataUS;
+  </div>
+  <!--Main layout-->
 
-    $(function() {
-      $( "#caixa" ).change(function(res) {
-        let caixa = res.target.value
-        $.ajax({ 
-          url: `/finalizadora/consulta/${dataUS}/caixa/${caixa}`,
-          type:"get" ,
-          success: function(res){
-            console.log(res);
-            const dados = res.dados
-          } 
-        })
+  
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+
+  <script type="text/javascript" src="js/bootstrap-datepicker.js" charset="UTF-8"></script>
+
+  <script type="text/javascript" src="js/datatables.min.js"></script>
+
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();   
+  </script> 
+
+  <script>
+     $(document).ready(function() {
+      $('#tabela').DataTable({"language":  {
+                "url": "js/dataTables.Portuguese-Brasil.lang"},
+          aoColumnDefs: [ { "sClass": "hide_me", "aTargets": [] } ],
+          responsive: true
       });
     });
-
-    $(function() {
-      $( "#calendario" ).datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-      });
-    });  
-    
-   
   </script>
+
+  <!-- Charts -->
+  <!-- -->
   <script>
-    window.onload = initPage;
-    
-    var dataatual = '<%= dados.data %>'
-    const split = dataatual.split('-');
-    dataatual = split[2] + "/" +split[1]+"/"+split[0];
-    var caixaatual = '<%= dados.caixa %>'
-    console.log('data: ', dataatual, 'caixa: ', caixaatual)
-
-    function initPage(){
-      
-      $( "#calendario" ).val(dataatual)
-      $( "#caixa" ).val(caixaatual) 
-
- 
-    $( "#calendario" ).change(function(res) {
-      const data = res.target.value
-      const split = data.split('/');
-      dataUS = split[2] + "-" +split[1]+"-"+split[0];
-      
-
-        $.ajax({ 
-          url: `/finalizadora/consulta/${dataUS}`,
-          type:"get" ,
-          success: function(res){
-            console.log(res);
-            console.log(res.dados.length)
-            const tamanhoCaixa = res.dados.length + 2;
-            const dados = res.dados
-            $(function() {
-              $(".caixa").remove(function(res){
-                console.log(res)
-              });
-            })
-
-            dados.map(valorCaixa =>{
-              if(valorCaixa.caixa){
-                let select = document.querySelector('#caixa')
-                var caixa = document.createElement("option");        
-                caixa.innerHTML = valorCaixa.caixa    
-                caixa.value = valorCaixa.caixa         
-                select.appendChild(caixa);
-              }
-            })
-          } 
-        }) 
-      })
-    }
-    console.log(caixaatual)
-    function redirectTo(){
-      if(caixaatual.length > 7){
-        window.location.href= '/?data=' + caixaatual;
-      }else window.location.href= '/?data=' + dataUS;
-    }
-    function redirectToFinalizadora(){
-      if(caixaatual.length > 7){
-        window.location.href='/finalizadora' + '?data=' + caixaatual;
-      }else window.location.href='/finalizadora' + '?data=' + dataUS;
-    }
-    function redirectToVendas(){
-      if(caixaatual.length > 7){
-        window.location.href='/vendas' + '?data=' + caixaatual ;
-      }else window.location.href='/vendas' + '?data=' + dataUS ;
-    }
+    $.fn.datepicker.dates['en'] = {
+        days: ["Domingo", "Segunda", "Terça", "Quarta", "Quita", "Sexta", "Sabado", "Domingo"],
+        daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"],
+        daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa", "Do"],
+        months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        today: "Hoje"
+    };    
+    $('#datepicker').datepicker({
+        format: 'dd/mm/yyyy'
+    })
+    .on('changeDate', function(ev){
+      const data = String(ev.target.value).replace('/','.').replace('/','.');
+      console.log(data);
+      $.ajax({url: `/api/vendidos/${data}`, success: function(result){
+        console.log(result);        
+        table = $('#tabela').DataTable();
+        table.destroy();
+        table = null;
+        table = $('#tabela').DataTable({
+          data: result.dados,
+          "order": [[ 2, "desc" ]],
+          "language":  {
+                "url": "js/dataTables.Portuguese-Brasil.lang"
+          },
+          aoColumnDefs: [ { "sClass": "hide_me", "aTargets": [0,3] } ],
+          responsive: true
+        });
+      }});
+      $('#datepicker').datepicker('hide');
+    });
   </script>
+
+  <script>
+    function redirectToFinalizadora(){
+      var dt = document.getElementById("datepicker").value;
+      var data;
+      if (dt.length===10){
+        data={data:dt.replace('/','.').replace('/','.'),caixa:"Todos"}
+      };
+      $.ajax('/finalizadora', {
+          type: 'get',
+          data,
+          dataType: 'html',
+          success : function(html) {
+            $("body").html(html);
+          },
+          error: function(err) {
+              alert(err.message);
+          }
+      });
+    };
+   
+    function redirectToVendas(){
+      var dt = document.getElementById("datepicker").value;
+      var data;
+      if (dt.length===10){
+        data={data:dt.replace('/','.').replace('/','.'),caixa:"Todos"}
+      };
+      $.ajax('/vendas', {
+          type: 'get',
+          data,
+          dataType: 'html',
+          success : function(html) {
+            $("body").html(html);
+          },
+          error: function(err) {
+              alert(err.message);
+          }
+      });      
+    };
+  </script>
+
 </body>
 
 </html>
