@@ -46,8 +46,7 @@ router.get('/finalizadora/:data/:caixa', isAuth, function(req, res) {
       })
       .catch((err)=>{
           res.status(500).send({ dados:[], erro: err.message })
-      })
-       
+      })       
 });
 
   
